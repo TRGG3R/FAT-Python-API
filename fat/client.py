@@ -10,13 +10,16 @@ from .session import FATAPISession
 
 class BaseAPI(object):
     def __init__(self, chain_id=None, token_id=None, issuer_id=None,
-                 fat_address=None, fct_address=None, host=None,
-                 version='v2', username=None, password=None, certfile=None):
+                 fct_address=None, host=None, version='v2', username=None,
+                 password=None, certfile=None):
         """
          Instantiate a new API client.
          Args:
-             fat_address (str): A default Factom Asset Token address to
-             use for transactions.
+             chain_id (str): A default chainID used with transactions.
+             token_id (str): TokenID of issued tokens. Must be used with
+                issuer_id.
+             issuer_id (str): Issuer Root ChainID. Must be used with
+                token_id.
              fct_address (str): A default factoid address to use for
                  transactions. Factoids will be spent from this address.
              host (str): Hostname, including http(s)://, of the factomd
@@ -30,7 +33,6 @@ class BaseAPI(object):
         self.chain_id = chain_id
         self.token_id = token_id
         self.issuer_id = issuer_id
-        self.fat_address = fat_address
         self.fct_address = fct_address
         self.version = version
 
@@ -188,12 +190,12 @@ class FATd(BaseAPI):
                      nf_token_id=None):
         if ParamsToken.paramstoken_valid(self) is True:
             if chain_id is not None:
-                return self._request('get-transaction', {
+                return self._request('get-nf-token', {
                     'chain-id': chain_id,
                     'nf-token-id': nf_token_id
                 })
             else:
-                return self._request('get-transaction', {
+                return self._request('get-nf-token', {
                     'token-id': token_id,
                     'issuer-id': issuer_id,
                     'nf-token-id': nf_token_id
