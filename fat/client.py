@@ -154,7 +154,8 @@ class FATd(BaseAPI):
 
     def get_transaction(self, chain_id=None, token_id=None, issuer_id=None,
                         entry_hash=None):
-        if ParamsToken.paramstoken_valid(self) is True:
+        if ParamsToken.paramstoken_valid(self) is True and entry_hash is not \
+                None:
             if chain_id is not None:
                 return self._request('get-transaction', {
                     'chain-id': chain_id,
@@ -171,7 +172,8 @@ class FATd(BaseAPI):
 
     def get_transaction_entry(self, chain_id=None, token_id=None,
                               issuer_id=None, entry_hash=None):
-        if ParamsToken.paramstoken_valid(self) is True:
+        if ParamsToken.paramstoken_valid(self) is True and entry_hash is not \
+                None:
             if chain_id is not None:
                 return self._request('get-transaction-entry', {
                     'chain-id': chain_id,
@@ -188,7 +190,8 @@ class FATd(BaseAPI):
 
     def get_nf_token(self, chain_id=None, token_id=None, issuer_id=None,
                      nf_token_id=None):
-        if ParamsToken.paramstoken_valid(self) is True:
+        if ParamsToken.paramstoken_valid(self) is True and nf_token_id is not \
+                None:
             if chain_id is not None:
                 return self._request('get-nf-token', {
                     'chain-id': chain_id,
